@@ -1,22 +1,16 @@
 let calculator = {
-
-  firstNumber: a,
-  secondNumber: b,
   
   read(a, b) {
-    // this.firstNumber = a;
-    // this.secondNumber = b;
-    return a, b;
-    // this.firstNumber = +prompt("Введите первое число", 0);
-    // this.secondNumber = +prompt("Введите второе число", 0);
+    this.a= a;
+    this.b = b;
   },
  
   sum() {
-    return this.firstNumber + this.secondNumber;
+    return this.a + this.b;
   },
 
   mul() {
-    return this.firstNumber * this.secondNumber;
+    return this.a * this.b;
   }
 };
 
