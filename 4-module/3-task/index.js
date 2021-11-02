@@ -19,9 +19,9 @@ function highlight(table) {
       tdBody = allRows[n].getElementsByTagName("td");
   
         if (tdBody[k].innerHTML == 'm') {
-          allRows[n].setAttribute('class', 'male');
+          allRows[n].classList.add('male');
         } else {
-          allRows[n].setAttribute('class', 'female');
+          allRows[n].classList.add('female');
           }
       }
     }
