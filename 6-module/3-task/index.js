@@ -10,7 +10,7 @@ export default class Carousel {
     let carouselContainer = document.createElement('div');
     carouselContainer.classList.add('carousel__inner');
     this.elem.append(carouselContainer);
-
+   
     let arrowRight = createElement(`
       <div class="carousel__arrow carousel__arrow_right">
         <img src="/assets/images/icons/angle-icon.svg" alt="icon">
@@ -55,41 +55,40 @@ export default class Carousel {
       });
       this.elem.dispatchEvent(customEvent);
   }
+
+  initCarousel() {
+    let right = this.elem.querySelector('.carousel__arrow_right');
+    let left = this.elem.querySelector('.carousel__arrow_left');
+    let carousel = this.elem.querySelector('.carousel__inner');
+    let amountOfChildren = carousel.children.length;
+    const widthCarousel = carousel.offsetWidth;
+    let clickClick  = 0;
+    
+    if (clickClick == 0) {
+      left.style.display = 'none';
+    };
+  
+    if (right.addEventListener('click', function () {
+      clickClick -= 1;
+      carousel.style.transform = `translateX(${clickClick*widthCarousel}px)`;
+      left.style.display = '';
+      if (clickClick <= -(amountOfChildren-1)) {
+        
+        right.style.display = 'none';
+      };
+    }));
+  
+    if (left.addEventListener('click', function () {
+      clickClick += 1;
+      carousel.style.transform = `translateX(${clickClick*widthCarousel}px)`;
+      right.style.display = '';
+  
+      if (clickClick == 0) {
+        left.style.display = 'none';
+      }
+    }));
+  }
+
 };
 
 document.body.addEventListener('product-add', (event) => console.log(event.detail));
-
-export function initCarousel() {
-  let right = document.querySelector('.carousel__arrow_right');
-  let left = document.querySelector('.carousel__arrow_left');
-  let carousel = document.querySelector('.carousel__inner');
-  let amountOfChildren = carousel.children.length;
-  const widthCarousel = carousel.offsetWidth;
-  let clickClick  = 0;
-
-  if (clickClick == 0) {
-    left.style.display = 'none';
-  };
-
-  if (right.addEventListener('click', function () {
-    clickClick -= 1;
-    carousel.style.transform = `translateX(${clickClick*widthCarousel}px)`;
-    left.style.display = '';
-    if (clickClick <= -(amountOfChildren-1)) {
-      
-      right.style.display = 'none';
-    };
-  }));
-
-  if (left.addEventListener('click', function () {
-    clickClick += 1;
-    carousel.style.transform = `translateX(${clickClick*widthCarousel}px)`;
-    right.style.display = '';
-
-    if (clickClick == 0) {
-      left.style.display = 'none';
-    }
-  }));
-};
-
-
