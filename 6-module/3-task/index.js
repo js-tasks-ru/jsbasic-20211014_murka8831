@@ -10,7 +10,7 @@ export default class Carousel {
     let carouselContainer = document.createElement('div');
     carouselContainer.classList.add('carousel__inner');
     this.elem.append(carouselContainer);
-   
+       
     let arrowRight = createElement(`
       <div class="carousel__arrow carousel__arrow_right">
         <img src="/assets/images/icons/angle-icon.svg" alt="icon">
@@ -46,6 +46,8 @@ export default class Carousel {
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener('click', this.onClick);
     };
+    
+    this.initCarousel();
   }
 
   onClick = (event) => {
@@ -61,7 +63,6 @@ export default class Carousel {
     let left = this.elem.querySelector('.carousel__arrow_left');
     let carousel = this.elem.querySelector('.carousel__inner');
     let amountOfChildren = carousel.children.length;
-    const widthCarousel = carousel.offsetWidth;
     let clickClick  = 0;
     
     if (clickClick == 0) {
@@ -70,6 +71,7 @@ export default class Carousel {
   
     if (right.addEventListener('click', function () {
       clickClick -= 1;
+      const widthCarousel = carousel.offsetWidth;
       carousel.style.transform = `translateX(${clickClick*widthCarousel}px)`;
       left.style.display = '';
       if (clickClick <= -(amountOfChildren-1)) {
@@ -80,6 +82,7 @@ export default class Carousel {
   
     if (left.addEventListener('click', function () {
       clickClick += 1;
+      const widthCarousel = carousel.offsetWidth;
       carousel.style.transform = `translateX(${clickClick*widthCarousel}px)`;
       right.style.display = '';
   
