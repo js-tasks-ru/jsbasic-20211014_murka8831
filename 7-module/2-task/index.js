@@ -3,8 +3,6 @@ import createElement from '../../assets/lib/create-element.js';
 export default class Modal {
   constructor() {
     this.render();
-    this.setTitle();
-    this.setBody();
     this.buttonClose();
     this.isOpened = false;
   }
@@ -16,10 +14,7 @@ export default class Modal {
       let modal = document.querySelector('.modal');
       document.body.classList.remove('is-modal-open');
       modal.remove();
-      let button = document.querySelector('button');
-      button.style.display = '';
-        
-    });  
+     });  
   }
 
   render() {
@@ -46,26 +41,19 @@ export default class Modal {
 
   open() {
       
-    let modal = document.querySelector('.container');
-    modal.append(this.elem);
+    let body = document.querySelector('body');
+    body.append(this.elem);
     document.body.classList.add('is-modal-open');
     this.isOpened = true;
 
-    if (this.isOpened){
-      let button = document.querySelector('button');
-      button.style.display = 'none';
-    };
-      document.body.addEventListener('keydown', this.keyEscape);
+    document.body.addEventListener('keydown', this.keyEscape);
   }
-
-    
-
+  
   keyEscape = (event) => {
     event.preventDefault();
     if (event.code === 'Escape') {
       this.close();
     }
-    document.body.removeEventListener('keydown', this.keyEscape);
   }
 
   setTitle(text) {
@@ -85,8 +73,7 @@ export default class Modal {
     if (modal) {
       document.body.classList.remove('is-modal-open');
       modal.remove();
-      let buttonModal = document.querySelector('button');
-      buttonModal.style.display = '';
+      document.body.removeEventListener('keydown', this.keyEscape);
     }
   }
 };

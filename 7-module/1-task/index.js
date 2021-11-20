@@ -40,7 +40,7 @@ export default class RibbonMenu {
 
     this.scrollLeft();
     this.scrolLRight();
-    
+    this.scroll();
   }
 
   onClick = (event) => {
@@ -60,15 +60,16 @@ export default class RibbonMenu {
     event.target.classList.add('ribbon__item_active');
   }
 
-
-   scrollLeft() {
-    let leftButton = this.elem.querySelector('.ribbon__arrow_left');
-    let rightButton = this.elem.querySelector('.ribbon__arrow_right');
+  scroll() {
     let ribbonInner = this.elem.querySelector('.ribbon__inner');
-           
-    leftButton.addEventListener('click', () => {
+
+    ribbonInner.addEventListener('scroll', () => {
+      let leftButton = this.elem.querySelector('.ribbon__arrow_left');
+      let rightButton = this.elem.querySelector('.ribbon__arrow_right');
       let scrollLeft = ribbonInner.scrollLeft;
-      ribbonInner.scrollBy(-350, 0);
+      let scrollWidth = ribbonInner.scrollWidth;
+      let clientWidth = ribbonInner.clientWidth;
+      let scrollRight = scrollWidth - scrollLeft - clientWidth;
 
       if (scrollLeft < 1) {
         leftButton.classList.remove('ribbon__arrow_visible');
@@ -76,27 +77,33 @@ export default class RibbonMenu {
       } else {
         leftButton.classList.add('ribbon__arrow_visible');
       };
+
+      if (scrollRight < 1 ) {
+        rightButton.classList.remove('ribbon__arrow_visible');
+        leftButton.classList.add('ribbon__arrow_visible');
+      } else {
+        rightButton.classList.add('ribbon__arrow_visible');
+      };
+
+    })
+    
+  }
+  
+   scrollLeft() {
+    let leftButton = this.elem.querySelector('.ribbon__arrow_left');
+    let ribbonInner = this.elem.querySelector('.ribbon__inner');
+           
+    leftButton.addEventListener('click', () => {
+      ribbonInner.scrollBy(-350, 0);
     })
   }
 
   scrolLRight() {
     let rightButton = this.elem.querySelector('.ribbon__arrow_right');
     let ribbonInner = this.elem.querySelector('.ribbon__inner');
-    let leftButton = this.elem.querySelector('.ribbon__arrow_left');
 
     rightButton.addEventListener('click', () => {
-      let scrollLeft = ribbonInner.scrollLeft;
-      let scrollWidth = ribbonInner.scrollWidth;
-      let clientWidth = ribbonInner.clientWidth;
-      let scrollRight = scrollWidth - scrollLeft - clientWidth;
       ribbonInner.scrollBy(350, 0);
-
-      if (scrollRight < 1 ) {
-        rightButton.classList.remove('ribbon__arrow_visible');
-      } else {
-        rightButton.classList.add('ribbon__arrow_visible');
-        leftButton.classList.add('ribbon__arrow_visible');
-      }
     });
   }
 };
