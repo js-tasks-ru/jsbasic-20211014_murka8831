@@ -63,18 +63,14 @@ export default class ProductGrid {
         }
     };
 
-    if (noNutsControl.checked) {
-      this.filters.noNuts = noNutsControl.checked;
-
+    if (filters.noNuts) {
       for (let card of cards) {
-
         let nutsON = nuts.includes(card.textContent);
         if (nutsON) {
           card.closest('.card').style.display = 'none';
         }
       } 
     } else {
-        this.filters.noNuts = noNutsControl.checked;
         for (let card of cards) {
           let nutsON = nuts.includes(card.textContent);
           if (nutsON) {
@@ -83,82 +79,102 @@ export default class ProductGrid {
         }
       };
 
+    // if (noNutsControl.checked) {
+    //   this.filters.noNuts = noNutsControl.checked;
 
-    if (vegetarianOnlyControl.checked) {
-      this.filters.vegeterianOnly = vegetarianOnlyControl.checked;
-      for (let card of cards) {
-        let vegeterianOn = vegeterian.includes(card.textContent);
-        if (!vegeterianOn) {
-          card.closest('.card').style.display = 'none';
-        } else if (!vegeterianOn && (this.filters.noNuts)) {
-            card.closest('.card').style.display = 'none';
-          }
-      } 
-    } else {
-      this.filters.vegeterianOnly = vegetarianOnlyControl.checked;
-        for (let card of cards) {
-          let vegeterianOn = vegeterian.includes(card.textContent);
-          if (!vegeterianOn && (this.filters.noNuts)) {
-            if ((nuts.includes(card.textContent))) {
-              card.closest('.card').style.display = 'none';
-            } else {
-              card.closest('.card').style.display = '';
-            }
-          } else if (!vegeterianOn && (!this.filters.noNuts)) {
-              card.closest('.card').style.display = '';
-          }
-        }
-      };
+    //   for (let card of cards) {
+
+    //     let nutsON = nuts.includes(card.textContent);
+    //     if (nutsON) {
+    //       card.closest('.card').style.display = 'none';
+    //     }
+    //   } 
+    // } else {
+    //     this.filters.noNuts = noNutsControl.checked;
+    //     for (let card of cards) {
+    //       let nutsON = nuts.includes(card.textContent);
+    //       if (nutsON) {
+    //         card.closest('.card').style.display = '';
+    //       }
+    //     }
+    //   };
 
 
+//     if (vegetarianOnlyControl.checked) {
+//       this.filters.vegeterianOnly = vegetarianOnlyControl.checked;
+//       for (let card of cards) {
+//         let vegeterianOn = vegeterian.includes(card.textContent);
+//         if (!vegeterianOn) {
+//           card.closest('.card').style.display = 'none';
+//         } else if (!vegeterianOn && (this.filters.noNuts)) {
+//             card.closest('.card').style.display = 'none';
+//           }
+//       } 
+//     } else {
+//       this.filters.vegeterianOnly = vegetarianOnlyControl.checked;
+//         for (let card of cards) {
+//           let vegeterianOn = vegeterian.includes(card.textContent);
+//           if (!vegeterianOn && (this.filters.noNuts)) {
+//             if ((nuts.includes(card.textContent))) {
+//               card.closest('.card').style.display = 'none';
+//             } else {
+//               card.closest('.card').style.display = '';
+//             }
+//           } else if (!vegeterianOn && (!this.filters.noNuts)) {
+//               card.closest('.card').style.display = '';
+//           }
+//         }
+//       };
 
-    if (categoryControl.checked) {
-      this.filters.category = 'soups';
-      for (let card of cards) {
-        let category = soups.includes(card.textContent);
-        if (!category) {
-          card.closest('.card').style.display = 'none';
-        } 
-      } 
-    } else {
-        this.filters.category = '';
-        for (let card of cards) {
-          let category = soups.includes(card.textContent);
-          if ((!category) && (this.filters.noNuts) && (this.filters.vegeterianOnly)) {
-            if ((nuts.includes(card.textContent)) || (!vegeterian.includes(card.textContent))) {
-              card.closest('.card').style.display = 'none';
-            } else {
-              card.closest('.card').style.display = '';
-            }
-          } else if((!category) && (!this.filters.noNuts) && (!this.filters.vegeterianOnly)) {
-            card.closest('.card').style.display = '';
-          }
-        }
-      };
 
 
-      if (maxSpicinessControl.checked) {
-        this.filters.maxSpiciness = 2;
-        for (let card of cards) {
-        let spicinessOn = spiciness.includes(card.textContent);
-          if (!spicinessOn) {
-            card.closest('.card').style.display = 'none';
-          }
-        }
-       } else {
-        this.filters.maxSpiciness = 4;
-        for (let card of cards) {
-          let spicinessOn = spiciness.includes(card.textContent);
-          if ((!spicinessOn) && (this.filters.noNuts) && (this.filters.vegeterianOnly) && (this.category == 'soups')) {
-            if ((nuts.includes(card.textContent)) || (vegeterian.includes(card.textContent) || (soups.includes(card.textContent)))) {
-              card.closest('.card').style.display = 'none';
-            } else {
-              card.closest('.card').style.display = '';
-              }
-          } else if((!spicinessOn) && (!this.filters.noNuts) && (!this.filters.vegeterianOnly) && (this.category == '')) {
-            card.closest('.card').style.display = '';
-          }
-        }
-      }
+//     if (categoryControl.checked) {
+//       this.filters.category = 'soups';
+//       for (let card of cards) {
+//         let category = soups.includes(card.textContent);
+//         if (!category) {
+//           card.closest('.card').style.display = 'none';
+//         } 
+//       } 
+//     } else {
+//         this.filters.category = '';
+//         for (let card of cards) {
+//           let category = soups.includes(card.textContent);
+//           if ((!category) && (this.filters.noNuts) && (this.filters.vegeterianOnly)) {
+//             if ((nuts.includes(card.textContent)) || (!vegeterian.includes(card.textContent))) {
+//               card.closest('.card').style.display = 'none';
+//             } else {
+//               card.closest('.card').style.display = '';
+//             }
+//           } else if((!category) && (!this.filters.noNuts) && (!this.filters.vegeterianOnly)) {
+//             card.closest('.card').style.display = '';
+//           }
+//         }
+//       };
+
+
+//       if (maxSpicinessControl.checked) {
+//         this.filters.maxSpiciness = 2;
+//         for (let card of cards) {
+//         let spicinessOn = spiciness.includes(card.textContent);
+//           if (!spicinessOn) {
+//             card.closest('.card').style.display = 'none';
+//           }
+//         }
+//        } else {
+//         this.filters.maxSpiciness = 4;
+//         for (let card of cards) {
+//           let spicinessOn = spiciness.includes(card.textContent);
+//           if ((!spicinessOn) && (this.filters.noNuts) && (this.filters.vegeterianOnly) && (this.category == 'soups')) {
+//             if ((nuts.includes(card.textContent)) || (vegeterian.includes(card.textContent) || (soups.includes(card.textContent)))) {
+//               card.closest('.card').style.display = 'none';
+//             } else {
+//               card.closest('.card').style.display = '';
+//               }
+//           } else if((!spicinessOn) && (!this.filters.noNuts) && (!this.filters.vegeterianOnly) && (this.category == '')) {
+//             card.closest('.card').style.display = '';
+//           }
+//         }
+//       }
   }
 }
