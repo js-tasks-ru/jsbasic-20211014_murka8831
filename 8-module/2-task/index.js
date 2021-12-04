@@ -36,30 +36,44 @@ export default class ProductGrid {
         if (product.nuts === false || product.nuts === undefined) {
           arrayOfProducts.push(product)
         }
-      };
+      }
       container.innerHTML = ''
     } else {
       for (let product of this.products) {
         arrayOfProducts.push(product) 
-      };
+      }
         container.innerHTML = ''
       }
-   
+
     Object.assign(this.filters, filters);
 
     
     if (this.filters.vegeterianOnly) {
-      arrayOfProducts = arrayOfProducts.filter(item => item.vegeterian === true)
+      arrayOfProducts = arrayOfProducts.filter(item => item.vegeterian === true);
       container.innerHTML = '';
     } else {
         container.innerHTML = ''
       };
 
+    if (this.filters.category) {
+      arrayOfProducts = arrayOfProducts.filter(item => item.category === `${this.filters.category}`);
+      container.innerHTML = ''
+    } else {
+      container.innerHTML = ''
+    };
 
-    for (let product of arrayOfProducts ) {
+    if (this.filters.maxSpiciness) {
+      arrayOfProducts = arrayOfProducts.filter(item => item.spiciness <= `${this.filters.maxSpiciness}`);
+      container.innerHTML = ''
+     } else {
+      container.innerHTML = ''
+    };
+
+
+    for (let product of arrayOfProducts) {
       let card = new ProductCard(product);
       container.append(card.elem);
-    };
+    }
 
   }
 }
