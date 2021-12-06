@@ -13,23 +13,56 @@ export default class Cart {
   }
 
   addProduct(product) {
-    // СКОПИРУЙТЕ СЮДЯ СВОЙ КОД
+    if (product === null || product === undefined) {
+      return;
+    } else {
+      if (this.isEmpty()) {
+        let productAdd = Object.assign({}, {product}, {count:1});
+          this.cartItems.push(productAdd);
+      } else {
+        let productFind = this.cartItems.find(cartItem => cartItem.product.id === product.id);
+        if (productFind) {
+          productFind.count += 1;
+        } else {
+          let productAdd = Object.assign({}, {product}, {count:1});
+          this.cartItems.push(productAdd);
+        } 
+      } 
+    }
+
+    this.onProductUpdate(this.cartItems);
   }
 
   updateProductCount(productId, amount) {
-    // СКОПИРУЙТЕ СЮДЯ СВОЙ КОД
+    let productFind = this.cartItems.find(item => item.product.id === productId);
+
+    if (amount == 1 && productFind) {
+      productFind.count += 1;
+    } else if (amount == -1 && productFind) {
+      if (productFind.count > 1 ) {
+        productFind.count += amount;
+      } else if (productFind.count == 1) {
+        productFind.count += amount;
+        this.cartItems = this.cartItems.filter(cartItem => cartItem.count > 0);
+      } else {
+        this.cartItems = this.cartItems.filter(cartItem => cartItem.count > 0);
+      }
+    }
+
+     this.onProductUpdate(this.cartItems);
+
   }
 
   isEmpty() {
-    // СКОПИРУЙТЕ СЮДЯ СВОЙ КОД
+    return this.cartItems.length === 0;
   }
 
   getTotalCount() {
-    // СКОПИРУЙТЕ СЮДЯ СВОЙ КОД
+    return this.cartItems.reduce((totalCount, cartItem) => totalCount + cartItem.count, 0);
   }
 
   getTotalPrice() {
-    // СКОПИРУЙТЕ СЮДЯ СВОЙ КОД
+    return this.cartItems.reduce((totalPrice, cartItem) => totalPrice + cartItem.product.price* cartItem.count, 0);
   }
 
   renderProduct(product, count) {
@@ -84,8 +117,12 @@ export default class Cart {
   }
 
   renderModal() {
-    // ...ваш код
-  }
+    let modal = new Modal();
+      modal.setTitle('Your order');
+      modal.setBody(createElement(`<div>${this.cartItems.map(cartItem => this.renderProduct(cartItem.product, cartItem.count).outerHTML)}${this.renderOrderForm().outerHTML}</div>`));
+
+      modal.open();
+   }
 
   onProductUpdate(cartItem) {
     // ...ваш код
