@@ -166,7 +166,7 @@ export default class Cart {
 
         productCount.innerHTML = cartItem.count;
         productPrice.innerHTML = `€${(cartItem.product.price * cartItem.count).toFixed(2)}`;
-        infoPrice.innerHTML = `€${this.getTotalPrice()}`;
+        infoPrice.innerHTML = `€${this.getTotalPrice().toFixed(2)}`;
       }
     }
   }
