@@ -64,10 +64,10 @@ export default class Main {
     container.addEventListener('ribbon-select', (event) => this.productsGrid.updateFilter({category: event.detail}));
 
     let noNuts = document.getElementById('nuts-checkbox');
-    noNuts.addEventListener('change', (event) => this.productsGrid.updateFilter({noNuts: noNuts.checked}));
+    noNuts.addEventListener('change', () => this.productsGrid.updateFilter({noNuts: noNuts.checked}));
 
     let vegeterianOnly = document.getElementById('vegeterian-checkbox');
-    vegeterianOnly.addEventListener('change', (event) => this.productsGrid.updateFilter({vegeterianOnly: vegeterianOnly.checked}));
+    vegeterianOnly.addEventListener('change', () => this.productsGrid.updateFilter({vegeterianOnly: vegeterianOnly.checked}));
     
   }
 
