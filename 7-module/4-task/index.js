@@ -100,7 +100,7 @@ export default class StepSlider {
   eventClick() {
     this.elem.addEventListener('click', (event) => {
       let sliderStep = (this.elem.offsetWidth)/(this.steps -1)
-      let stepValue = Math.round((event.pageX - this.elem.offsetLeft)/sliderStep);
+      let stepValue = Math.round((event.clientX - this.elem.getBoundingClientRect().left)/sliderStep);
     
       let sliderValue = this.elem.querySelector('.slider__value');
       sliderValue.innerHTML = stepValue;

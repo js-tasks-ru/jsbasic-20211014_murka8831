@@ -13,6 +13,10 @@ import Cart from '../../8-module/4-task/index.js';
 export default class Main {
 
   constructor() {
+    this.ribbonMenu;
+    this.stepSlider;
+    this.cart
+    this.productsGrid
   }
 
   async render() {
@@ -20,30 +24,54 @@ export default class Main {
     let carousel = new Carousel(slides);
     containerElement.append(carousel.elem);
 
-    let ribbon = new RibbonMenu(categories);
+    this.ribbonMenu = new RibbonMenu(categories);
     let container = document.querySelector('[data-ribbon-holder]');
-    container.append(ribbon.elem);
+    container.append(this.ribbonMenu.elem);
 
     let holder = document.querySelector('[data-slider-holder]');
-    let stepSlider = new StepSlider({
+    this.stepSlider = new StepSlider({
       steps: 5,
       value: 3,
     });
-    holder.append(stepSlider.elem);
+    holder.append(this.stepSlider.elem);
 
     let cartIcon = new CartIcon();
     let cartIconHolder = document.querySelector('[data-cart-icon-holder]');
     cartIconHolder.append(cartIcon.elem);
     
-    let cart = new Cart(cartIcon);
+    this.cart = new Cart(cartIcon);
 
     let url = './products.json';
     let response = await fetch(url);
     let products = await response.json();
     let productsGridHolder = document.querySelector('[data-products-grid-holder]');
-    let productGrid = new ProductsGrid(products);
+    this.productsGrid = new ProductsGrid(products);
     productsGridHolder.innerHTML = '';
-    productsGridHolder.append(productGrid.elem);
+    productsGridHolder.append(this.productsGrid.elem);
+    
+    this.productsGrid.updateFilter({
+      noNuts: document.getElementById('nuts-checkbox').checked,
+      vegeterianOnly: document.getElementById('vegeterian-checkbox').checked,
+      maxSpiciness: this.stepSlider.value,
+      category: this.ribbonMenu.value
+    });
+
+
+    document.body.addEventListener('product-add', (event) => this.cart.addProduct(event.detail));
+
+    holder.addEventListener('slider-change', (event) => this.productsGrid.updateFilter({maxSpiciness: event.detail }));
+    
+    container.addEventListener('ribbon-select', (event) => this.productsGrid.updateFilter({category: event.detail}));
+
+    let noNuts = document.getElementById('nuts-checkbox');
+    noNuts.addEventListener('change', (event) => this.productsGrid.updateFilter({noNuts: noNuts.checked}));
+
+    let vegeterianOnly = document.getElementById('vegeterian-checkbox');
+    vegeterianOnly.addEventListener('change', (event) => this.productsGrid.updateFilter({vegeterianOnly: vegeterianOnly.checked}));
     
   }
+
+  
+
+
 }
