@@ -49,7 +49,6 @@ export default class Main {
     productsGridHolder.innerHTML = '';
     productsGridHolder.append(this.productsGrid.elem);
     
-    console.log(this.productsGrid)
     this.productsGrid.updateFilter({
       noNuts: document.getElementById('nuts-checkbox').checked,
       vegeterianOnly: document.getElementById('vegeterian-checkbox').checked,
