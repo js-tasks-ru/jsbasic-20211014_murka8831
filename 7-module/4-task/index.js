@@ -44,7 +44,7 @@ export default class StepSlider {
 
       function move(event) {
         let slider = document.querySelector('.slider');
-        let whereIsClick = event.pageX - slider.offsetLeft;
+        let whereIsClick = event.clientX - slider.getBoundingClientRect().left;
         let progress = document.querySelector('.slider__progress');
         let xMax = slider.offsetWidth;
         let xMin = 0;
@@ -74,9 +74,9 @@ export default class StepSlider {
       let slider = document.querySelector('.slider');
       slider.classList.add('slider_dragging');
 
-      document.onpointerup = function() {
+      document.onpointerup = function(event) {
         let slider = document.querySelector('.slider');
-        let whereIsClick = event.pageX - slider.offsetLeft;
+        let whereIsClick = event.clientX - slider.getBoundingClientRect().left;
         let sliderSteps = document.querySelector('.slider__steps');
         let sliderStep = (slider.offsetWidth)/(sliderSteps.children.length-1)
         let stepWidth = Math.round((whereIsClick )/sliderStep);
@@ -100,7 +100,7 @@ export default class StepSlider {
   eventClick() {
     this.elem.addEventListener('click', (event) => {
       let sliderStep = (this.elem.offsetWidth)/(this.steps -1)
-      let stepValue = Math.round((event.pageX - this.elem.offsetLeft)/sliderStep);
+      let stepValue = Math.round((event.clientX - this.elem.getBoundingClientRect().left)/sliderStep);
     
       let sliderValue = this.elem.querySelector('.slider__value');
       sliderValue.innerHTML = stepValue;
