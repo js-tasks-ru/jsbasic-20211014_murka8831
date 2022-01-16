@@ -49,6 +49,7 @@ export default class Main {
     productsGridHolder.innerHTML = '';
     productsGridHolder.append(this.productsGrid.elem);
     
+    console.log(this.productsGrid)
     this.productsGrid.updateFilter({
       noNuts: document.getElementById('nuts-checkbox').checked,
       vegeterianOnly: document.getElementById('vegeterian-checkbox').checked,
@@ -57,7 +58,13 @@ export default class Main {
     });
 
 
-    document.body.addEventListener('product-add', (event) => this.cart.addProduct(event.detail));
+    document.body.addEventListener('product-add', (event) => {
+      let productToAdd = this.productsGrid.products.find((product) => product.id === event.detail);
+
+      if (productToAdd) {
+        this.cart.addProduct(productToAdd);
+      }
+    });
 
     holder.addEventListener('slider-change', (event) => this.productsGrid.updateFilter({maxSpiciness: event.detail }));
     
